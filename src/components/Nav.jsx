@@ -1,8 +1,11 @@
 import {headerLogo} from '../assets/images'
-import{hamburger} from '../assets/icons'
+import{hamburger,intomark} from '../assets/icons'
 import{navLinks} from '../constants/index'
+import { useState } from 'react'
 
 const Nav = () => {
+
+  const[toggle,settoggle]=useState(false)
   
   return (
     
@@ -39,10 +42,28 @@ const Nav = () => {
               <span>/</span>
               <a href='/'>Explore Now</a>
              </div>
-             <div className=' hidden max-lg:block'>
-                <img src={hamburger} alt="Hamburger" width={25}height={25}
-                />  
-             </div> 
+            <div className='md:hidden flex flex-1 items-center justify-end '>
+              <img className='w-[28px] h-[28px] object-contain'
+               src={toggle? intomark:hamburger}
+               alt='hamburger' onClick={()=>settoggle(!toggle)} />
+               <div className={`${!toggle?'hidden':'flex p-6 bg-coral-red  z-10 duration-300 absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl '}`}>
+                <ul className=' list-none flex flex-col flex-1 items-start justify-end'>
+                  {navLinks.map((item)=>{
+                    return(
+                      <li  className='mb-4 font-normal cursor-pointer '
+                      key={item.label}>
+                        <a  className =''href={item.href}>
+                          {item.label}
+                          </a>
+                      </li>
+                    )
+                  })}
+
+                </ul>
+
+               </div>
+            </div>
+              
         </nav>
     </header>
   )
